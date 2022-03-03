@@ -1,3 +1,16 @@
+# input/output files
+*.txt
+*.csv
+
+# output folders
+Output/
+Output_2/
+test/
+
+# Specific R scripts
+archive.R
+
+
 # History files
 .Rhistory
 .Rapp.history
