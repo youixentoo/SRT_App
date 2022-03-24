@@ -1,5 +1,5 @@
 # SRT_App
-Internship Project
+Internship Project - dev branch
 
 # Usage
 The file to run is main.R. Additional libaries might need to be installed, Rstudio should give a notice and an option to install them.
