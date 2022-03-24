@@ -2,10 +2,12 @@
 *.txt
 *.csv
 
-# output folders
+# Specific folders
 Output/
 Output_2/
 test/
+archive/
+www/
 
 # Specific R scripts
 archive.R

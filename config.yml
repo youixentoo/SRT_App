@@ -3,19 +3,19 @@ default:
   dec_sep: ","
 
   # Output location
-  out_loc: "Output_2/"
-  
+  out_loc: "Output/"
+
   # File location of the genotypes per monitor file
   genotype_monitor: "C:/Users/User/Desktop/Stage/201127/genotypes_per_monitor.xlsx"
-  
+
   # File location of the day 3 dates of the monitor files
   day3_dates: "C:/Users/User/Desktop/Stage/201127/day3_monitors.xlsx"
-  
+
   # How many minutes does a fly need to be inactive to be considered dead
-  dead_threshold: 
+  dead_threshold:
     normal: 719
     SRT: 599
-    
+
   # Minutes for calculation of WASO
   WASO:
     normal: 720

@@ -11,12 +11,16 @@ source("proccessing.R")
 source("file_processing.R")
 source("calculations.R")
 
-# plumber
-
 # V11 - V42 == channels
 
+################################################################
+#                                                              #
+# To change the input files, change the file paths on line 82. #
+#                                                              #
+################################################################
+
 # Main function that calls all other functions.
-main = function(){
+SRT_main = function(file_list){
   config = config::get()
   
   # Assign config settings
@@ -25,18 +29,6 @@ main = function(){
   monitor_dict = FP_load_genotypes(config$genotype_monitor)
   day3_dict = FP_load_day3_dates(config$day3_dates)
   data_entries = dict()
-
-  # For fileopening gui
-  # test = tk_choose.files()
-  # print(test)
-  
-  file_list = list("C:/Users/User/Desktop/Stage/201127/rawdata1212/Monitor14.txt", "C:/Users/User/Desktop/Stage/201127/rawdata1212/Monitor22.txt")
-  
-
-  # file_path = "C:/Users/User/Desktop/Stage/201127/rawdata1212/Monitor13.txt"
-  # file_path = "C:/Users/User/Desktop/Stage/201127/rawdata1212/Monitor0.csv"
-  # File specific config settings
-
 
   for(file_entry in file_list){
     file_name = file_path_sans_ext(basename(file_entry))
@@ -86,5 +78,7 @@ last_index = function(x){
 
 # Best equivalent to 'if __name__ == "__main__":' in Python I could find.
 if (getOption('run.main', default=TRUE)) {
-  main()
+  # Change filepaths below to coorect input files.
+  file_list = list("C:/Users/User/Desktop/Stage/201127/rawdata1212/Monitor14.txt", "C:/Users/User/Desktop/Stage/201127/rawdata1212/Monitor22.txt")
+  SRT_main(file_list)
 }
