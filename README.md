@@ -1,8 +1,8 @@
 # SRT_App
-Internship Project - dev branch
+Internship Project
 
 # Usage
-The file to run is main.R. Additional libaries might need to be installed, Rstudio should give a notice and an option to install them.
+Java is used for the interface, R is required to be installed on the pc
 
 # Extra files
 Files referenced in config.yml:
