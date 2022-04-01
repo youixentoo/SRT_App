@@ -21,7 +21,7 @@ source("Rcode/calculations.R")
 
 # Main function that calls all other functions.
 SRT_main = function(file_list){
-  config = config::get()
+  config = config::get(file = "Configs/config.yml")
   
   # Assign config settings
   options(OutDec = config$dec_sep)
