@@ -15,7 +15,7 @@ Java is used for the interface, R is required to be installed on the pc.
 
 # Usage
 ### Location
-The application only works if it's in the same folder as "Configs" and "RCode". A warning message will show if the config.yml file or any of the R scripts can't be found. However, there are no checka in place in the case one of both of the .xlsx files are missing.
+The application only works if it's in the same folder as "Configs" and "RCode". A warning message will show if the config.yml file or any of the R scripts can't be found. However, there are no checks in place in the case one of both of the .xlsx files are missing.
 
 ### How to use
 - On start-up, there is 1 button available: "Select...". Pressing this button opens a windows that allows for selection of 1 or more files.
