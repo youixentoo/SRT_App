@@ -422,7 +422,7 @@ public class SRT_Frame extends javax.swing.JFrame {
     /**
      * Main function for selecting files to be processed by R
      */
-    private void selectFilesForProcessing(){
+    private void selectFilesForProcessing() {
         // File filter for .txt files only
         FileNameExtensionFilter filter = new FileNameExtensionFilter("TXT Files", "txt");
         File[] files = selectMultipleFiles(filter);
@@ -454,11 +454,11 @@ public class SRT_Frame extends javax.swing.JFrame {
             filesLoadedLabel.setText(labelString);
         }
     }
-    
+
     /**
      * Main function for calling the R script and processing the returned data
      */
-    private void callRScript(){
+    private void callRScript() {
         new Thread() {
             @Override
             public void run() {
@@ -469,9 +469,10 @@ public class SRT_Frame extends javax.swing.JFrame {
             }
         }.start();
     }
-    
+
     /**
      * Function for selecting multiple files using the filechooser.
+     *
      * @param filter FileNameExtensionFilter
      * @return The selected files
      */
@@ -489,6 +490,7 @@ public class SRT_Frame extends javax.swing.JFrame {
 
     /**
      * Function for selecting single files using the filechooser
+     *
      * @param filter FileNameExtensionFilter
      * @return The selected file
      */
@@ -506,6 +508,7 @@ public class SRT_Frame extends javax.swing.JFrame {
 
     /**
      * Function for getting the config.yml from the Configs folder
+     *
      * @return The config as a Map
      */
     private Map<String, Object> getConfig() {
@@ -520,13 +523,14 @@ public class SRT_Frame extends javax.swing.JFrame {
             // Inform of missing file and exitting after.
             JOptionPane.showMessageDialog(this, "File: Configs/config.yml not found", "Warning", JOptionPane.WARNING_MESSAGE);
             System.exit(0);
-        } 
+        }
         return yamlObject;
     }
 
     /**
-     * Function for handling the output coming from the R script. 
-     * Inserts the key+value into the jTextPane.
+     * Function for handling the output coming from the R script. Inserts the
+     * key+value into the jTextPane.
+     *
      * @param fileSuccess The output coming from processSelectedFiles()
      * @see processSelectedFiles()
      */
@@ -540,6 +544,7 @@ public class SRT_Frame extends javax.swing.JFrame {
 
     /**
      * Function to add strings to the jTextPane
+     *
      * @param message String
      */
     private void addTextToTextPane(String message) {
@@ -551,7 +556,9 @@ public class SRT_Frame extends javax.swing.JFrame {
 
     /**
      * Function to call the R script.
-     * @return A Map with the filepath as key and either an error message or 'success' as value
+     *
+     * @return A Map with the filepath as key and either an error message or
+     * 'success' as value
      */
     private Map<String, String> processSelectedFiles() {
         // Converts from \ to / in filepaths, R requires it
@@ -577,27 +584,43 @@ public class SRT_Frame extends javax.swing.JFrame {
     }
 
     /**
-     * Stores the R code into a variable
+     * Stores the R code into a variable, checks if the R scripts can be found,
+     * creates a warning message if it can't.
      */
     private void createRCode() {
+        String[] scriptList = {"Rcode/main.R", "Rcode/calculations.R", "Rcode/file_processing.R", "Rcode/proccessing.R"};
+        String message = "The following file(s) are missing:";
+        boolean scriptError = false;
+        for (String filePath : scriptList) {
+            File temp = new File(filePath);
+            if (!temp.exists()) {
+                scriptError = true;
+                message += "\n" + filePath;
+            }
+        }
+        if (scriptError) {
+            JOptionPane.showMessageDialog(this, message, "Warning", JOptionPane.WARNING_MESSAGE);
+            System.exit(0);
+        }
+
         code = RCode.create();
         caller = RCaller.create();
         String rSource = "Rcode/main.R";
         code.R_source(rSource);
     }
-    
+
     /**
-     * Saves the values from the jDialog into a HashMap, if any values are changed,
-     * the new HashMap gets written to Configs/config.yml.
+     * Saves the values from the jDialog into a HashMap, if any values are
+     * changed, the new HashMap gets written to Configs/config.yml.
      */
-    private void saveConfig(){
+    private void saveConfig() {
         Map dead = new LinkedHashMap<>();
         Map waso = new LinkedHashMap<>();
         dead.put("normal", Integer.parseInt(deadNormalTextField.getText()));
         dead.put("SRT", Integer.parseInt(deadSRTTextField.getText()));
         waso.put("normal", Integer.parseInt(wasoNormalTextField.getText()));
         waso.put("SRT", Integer.parseInt(wasoSRTTextField.getText()));
-        
+
         Map data = new LinkedHashMap<>();
         data.put("dec_sep", dec_sepTextField.getText());
         data.put("out_loc", out_locTextField.getText());
@@ -605,12 +628,12 @@ public class SRT_Frame extends javax.swing.JFrame {
         data.put("day3_dates", day3_datesTextField.getText());
         data.put("dead_threshold", dead);
         data.put("WASO", waso);
-        
+
         Map def = new LinkedHashMap<>();
         def.put("default", data);
-        
+
         // Only saves to file if any changes are made
-        if(!yamlConfig.equals(def)){
+        if (!yamlConfig.equals(def)) {
             PrintWriter writer;
             try {
                 writer = new PrintWriter(new File("Configs/config.yml"));
@@ -618,15 +641,15 @@ public class SRT_Frame extends javax.swing.JFrame {
                 yaml.dump(def, writer);
             } catch (Exception ex) {
                 JOptionPane.showMessageDialog(this, "An error occurred while trying to save the file", "Warning", JOptionPane.WARNING_MESSAGE);
-            }  
-        } 
+            }
+        }
     }
-    
+
     /**
-     * Loads the configuration settings from Configs/config.yml.
-     * Also sets the width of the jDialog to fit the largest jTextField
+     * Loads the configuration settings from Configs/config.yml. Also sets the
+     * width of the jDialog to fit the largest jTextField
      */
-    private void initConfig(){
+    private void initConfig() {
         yamlConfig = getConfig();
         Map data = (Map) yamlConfig.get("default");
         Map dead = (Map) data.get("dead_threshold");
@@ -640,17 +663,17 @@ public class SRT_Frame extends javax.swing.JFrame {
         deadSRTTextField.setText(dead.get("SRT").toString());
         wasoNormalTextField.setText(WASO.get("normal").toString());
         wasoSRTTextField.setText(WASO.get("SRT").toString());
-        
+
         Component[] comps = editConfigPanel.getComponents();
         int widest = 0;
-        for(Component comp: comps){
-            if(comp.getPreferredSize().width > widest){
+        for (Component comp : comps) {
+            if (comp.getPreferredSize().width > widest) {
                 widest = comp.getPreferredSize().width;
             }
         }
         // Sets the window to fit the largest textField
         Dimension dialogDim = editDialog.getSize();
-        dialogDim.setSize(140+widest+12, dialogDim.height);
+        dialogDim.setSize(140 + widest + 12, dialogDim.height);
         editDialog.setSize(dialogDim);
     }
 
@@ -674,7 +697,7 @@ public class SRT_Frame extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(SRT_Frame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
-        
+
         //</editor-fold>
 
         /* Create and display the form */
@@ -735,65 +758,67 @@ public class SRT_Frame extends javax.swing.JFrame {
 }
 
 /**
- * Custom DocumentFilter to force the use of Integers in the deadthreshold and waso categories of the jDialog window.
+ * Custom DocumentFilter to force the use of Integers in the deadthreshold and
+ * waso categories of the jDialog window.
  * https://stackoverflow.com/questions/11093326/restricting-jtextfield-input-to-integers/11093360#11093360
  */
 class CustomIntFilter extends DocumentFilter {
-   @Override
-   public void insertString(FilterBypass fb, int offset, String string,
-         AttributeSet attr) throws BadLocationException {
 
-      Document doc = fb.getDocument();
-      StringBuilder sb = new StringBuilder();
-      sb.append(doc.getText(0, doc.getLength()));
-      sb.insert(offset, string);
+    @Override
+    public void insertString(FilterBypass fb, int offset, String string,
+            AttributeSet attr) throws BadLocationException {
 
-      if (test(sb.toString())) {
-         super.insertString(fb, offset, string, attr);
-      } else {
-         // warn the user and don't allow the insert
-      }
-   }
+        Document doc = fb.getDocument();
+        StringBuilder sb = new StringBuilder();
+        sb.append(doc.getText(0, doc.getLength()));
+        sb.insert(offset, string);
 
-   private boolean test(String text) {
-      try {
-         Integer.parseInt(text);
-         return true;
-      } catch (NumberFormatException e) {
-         return false;
-      }
-   }
+        if (test(sb.toString())) {
+            super.insertString(fb, offset, string, attr);
+        } else {
+            // warn the user and don't allow the insert
+        }
+    }
 
-   @Override
-   public void replace(FilterBypass fb, int offset, int length, String text,
-         AttributeSet attrs) throws BadLocationException {
+    private boolean test(String text) {
+        try {
+            Integer.parseInt(text);
+            return true;
+        } catch (NumberFormatException e) {
+            return false;
+        }
+    }
 
-      Document doc = fb.getDocument();
-      StringBuilder sb = new StringBuilder();
-      sb.append(doc.getText(0, doc.getLength()));
-      sb.replace(offset, offset + length, text);
+    @Override
+    public void replace(FilterBypass fb, int offset, int length, String text,
+            AttributeSet attrs) throws BadLocationException {
 
-      if (test(sb.toString())) {
-         super.replace(fb, offset, length, text, attrs);
-      } else {
-         // warn the user and don't allow the insert
-      }
+        Document doc = fb.getDocument();
+        StringBuilder sb = new StringBuilder();
+        sb.append(doc.getText(0, doc.getLength()));
+        sb.replace(offset, offset + length, text);
 
-   }
+        if (test(sb.toString())) {
+            super.replace(fb, offset, length, text, attrs);
+        } else {
+            // warn the user and don't allow the insert
+        }
 
-   @Override
-   public void remove(FilterBypass fb, int offset, int length)
-         throws BadLocationException {
-      Document doc = fb.getDocument();
-      StringBuilder sb = new StringBuilder();
-      sb.append(doc.getText(0, doc.getLength()));
-      sb.delete(offset, offset + length);
+    }
 
-      if (test(sb.toString())) {
-         super.remove(fb, offset, length);
-      } else {
-         // warn the user and don't allow the insert
-      }
+    @Override
+    public void remove(FilterBypass fb, int offset, int length)
+            throws BadLocationException {
+        Document doc = fb.getDocument();
+        StringBuilder sb = new StringBuilder();
+        sb.append(doc.getText(0, doc.getLength()));
+        sb.delete(offset, offset + length);
 
-   }
+        if (test(sb.toString())) {
+            super.remove(fb, offset, length);
+        } else {
+            // warn the user and don't allow the insert
+        }
+
+    }
 }

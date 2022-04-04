@@ -1,7 +1,7 @@
 default:
   dec_sep: ','
-  out_loc: Output3/
-  genotype_monitor: C:/Users/User/Desktop/Stage/RStudio/SRT_App/Configs/genotypes_per_monitor.xlsx
-  day3_dates: C:/Users/User/Desktop/Stage/RStudio/SRT_App/Configs/day3_monitors.xlsx
+  out_loc: Output2/
+  genotype_monitor: Configs/genotypes_per_monitor.xlsx
+  day3_dates: Configs/day3_monitors.xlsx
   dead_threshold: {normal: 719, SRT: 599}
   WASO: {normal: 720, SRT: 600}
