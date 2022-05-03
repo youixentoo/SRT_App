@@ -4,13 +4,8 @@
 
 # Specific folders
 Output/
-Output_2/
-test/
 archive/
-Output_error/
-Output_java/
-Output2/
-Output3/
+
 
 # Specific R scripts
 archive.R

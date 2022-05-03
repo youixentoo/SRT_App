@@ -1,6 +1,6 @@
 default:
   dec_sep: ','
-  out_loc: Output2/
+  out_loc: Output/
   genotype_monitor: Configs/genotypes_per_monitor.xlsx
   day3_dates: Configs/day3_monitors.xlsx
   dead_threshold: {normal: 719, SRT: 599}

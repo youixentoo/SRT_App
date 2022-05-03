@@ -19,6 +19,7 @@ import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import javax.swing.JFileChooser;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 import javax.swing.filechooser.FileNameExtensionFilter;
@@ -428,18 +429,8 @@ public class SRT_Frame extends javax.swing.JFrame {
         File[] files = selectMultipleFiles(filter);
         if (files == null) {
             if (!"".equals(filesLoadedLabel.getText())) {
-                new Thread() {
-                    @Override
-                    public void run() {
-                        String temp = filesLoadedLabel.getText();
-                        filesLoadedLabel.setText("File selection cancelled");
-                        try {
-                            Thread.sleep(1500);
-                        } catch (InterruptedException ex) {
-                        }
-                        filesLoadedLabel.setText(temp);
-                    }
-                }.start();
+                FilesLoadedThread FLT = new FilesLoadedThread(filesLoadedLabel);
+                FLT.start();
             }
         } else {
             processButton.setEnabled(true);
@@ -822,3 +813,24 @@ class CustomIntFilter extends DocumentFilter {
 
     }
 }
+
+
+class FilesLoadedThread extends Thread {
+    private final JLabel filesLoadedLabel;
+    public FilesLoadedThread(JLabel filesLoadedLabel) {
+        this.filesLoadedLabel = filesLoadedLabel;
+    }
+    
+    @Override
+    public void run() {
+        String temp = filesLoadedLabel.getText();
+        filesLoadedLabel.setText("File selection cancelled");
+        try {
+            Thread.sleep(1500);
+        } catch (InterruptedException ex) {
+        }
+        filesLoadedLabel.setText(temp);
+    }
+
+}
+
