@@ -7,7 +7,7 @@ library(collections, warn.conflicts = FALSE)
 C_get_data_per_file = function(waso_time, night_periods){
   day3 = as.data.frame(night_periods[1])
   day4 = as.data.frame(night_periods[2])
-  
+
   dataframe_day3 = do_calculations(day3, waso_time)
   dataframe_day4 = do_calculations(day4, waso_time)
 
@@ -27,7 +27,7 @@ col_calcs = function(data, waso_time){
   data_string = paste(data, sep="", collapse="")
   indexed_extract_all_SB = as.data.frame(str_locate_all(data_string, "0{10,}"))
   TST_total_lengths = apply(indexed_extract_all_SB, 1, TST_row_length) # Row wise
-  
+
   # TST - min
   TST = sum(TST_total_lengths)/2
 
@@ -69,7 +69,7 @@ C_get_sleep_prob = function(data, channel_dict){
 calc_pwake_doze = function(bins){
   wake = 0
   doze = 0
-  
+
   last_bin = -1; # Can really be any number, gets replaced by/at first index of for-loop
   for(i in seq_along(bins)){
     current_bin = bins[[i]]
@@ -85,7 +85,7 @@ calc_pwake_doze = function(bins){
       last_bin = current_bin
     }
   }
-  
+
   # If last bin is active
   if(last_bin == 1){
     denom_wake = length(which(bins == 0))
@@ -94,20 +94,20 @@ calc_pwake_doze = function(bins){
     denom_wake = length(which(bins[1:length(bins)-1] == 0))
     denom_doze = length(which(bins == 1))
   }
-  
+
   # Calculates the value for Pwake and Pdoze
   # If the denominator is 0, the value gets set to -1 (undefined)
   if(denom_wake == 0){
-    Pwake = -1
+    Pwake = NA
   }else{
     Pwake = wake / denom_wake
   }
-  
+
   if(denom_doze == 0){
-    Pdoze = -1
+    Pdoze = NA
   }else{
     Pdoze = doze / denom_doze
   }
-  
+
   return(list(Pwake, Pdoze))
 }

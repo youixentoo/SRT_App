@@ -66,7 +66,7 @@ SRT_main = function(file_list){
       Pday2 = C_get_sleep_prob(min_activity_data[2], monitor_dict$get(current_monitor))
       Pday3 = C_get_sleep_prob(min_activity_data[3], monitor_dict$get(current_monitor))
       Pday4 = C_get_sleep_prob(min_activity_data[4], monitor_dict$get(current_monitor))
-
+      
       Pavg12 = P_combine_data(Pday1, Pday2)
       Pavg34 = P_combine_data(Pday3, Pday4)
       PavgAll = P_combine_data(Pday1, Pday2, Pday3, Pday4)
@@ -76,17 +76,16 @@ SRT_main = function(file_list){
       averaged_plus_dead = P_average_days(data_entry, dead_threshold)
       geno_matched = P_match_genotype(as.data.frame(averaged_plus_dead[[1]]), monitor_dict$get(current_monitor))
 
-
       ### Set data entries ###
       data_entries$set(file_name, list(FALSE, geno_matched))
 
-      data_entries$set(sprintf("%s_Pday1", file_name), list(TRUE, Pday1))
-      data_entries$set(sprintf("%s_Pday2", file_name), list(TRUE, Pday2))
-      data_entries$set(sprintf("%s_Pday3", file_name), list(TRUE, Pday3))
-      data_entries$set(sprintf("%s_Pday4", file_name), list(TRUE, Pday4))
-      data_entries$set(sprintf("%s_Pavg12", file_name), list(TRUE, Pavg12))
-      data_entries$set(sprintf("%s_Pavg34", file_name), list(TRUE, Pavg34))
-      data_entries$set(sprintf("%s_PavgAll", file_name), list(TRUE, PavgAll))
+      data_entries$set(sprintf("%s_Pday1", file_name), list(TRUE, Pday1, current_monitor)) # list
+      data_entries$set(sprintf("%s_Pday2", file_name), list(TRUE, Pday2, current_monitor))
+      data_entries$set(sprintf("%s_Pday3", file_name), list(TRUE, Pday3, current_monitor))
+      data_entries$set(sprintf("%s_Pday4", file_name), list(TRUE, Pday4, current_monitor))
+      data_entries$set(sprintf("%s_Pavg12", file_name), list(TRUE, Pavg12, current_monitor))
+      data_entries$set(sprintf("%s_Pavg34", file_name), list(TRUE, Pavg34, current_monitor))
+      data_entries$set(sprintf("%s_PavgAll", file_name), list(TRUE, PavgAll, current_monitor)) # double
 
 
     returnVal = "success"
@@ -109,7 +108,7 @@ SRT_main = function(file_list){
   for(filename in data_entries$keys()){
     genomatched = data_entries$get(filename)
     if(genomatched[[1]]){
-      FP_separate_data(out_loc, filename, genomatched[[2]], TRUE, current_monitor)
+      FP_separate_data(out_loc, filename, genomatched[[2]], TRUE, genomatched[[3]])
     }else{
       FP_separate_data(out_loc, filename, genomatched[[2]])
     }
@@ -125,9 +124,11 @@ last_index = function(x){
   return(x[length(x)])
 }
 
+
+
 # Call script
 if (getOption('run.main', default=TRUE)) {
-  # Change filepaths below to correct input files.
+  # Change filepaths below to correct input files.   , "C:/Users/User/Desktop/Stage/201127/rawdata1212/Monitor21.txt"
   file_list = list("C:/Users/User/Desktop/Stage/201127/rawdata1212/Monitor22.txt")
   SRT_main(file_list)
 }
