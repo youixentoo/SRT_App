@@ -2,6 +2,9 @@
 Internship Project<br>
 Made by Thijs Weenink
 
+### Download
+Download the latest zip from releases or click [here](https://github.com/youixentoo/SRT_App/releases/latest/download/SRT_app.zip)
+
 # Requirements
 - Java version 17
 - R version 4.1.3
