@@ -58,10 +58,12 @@ TST_lengths = function(items){
 }
 
 # Calculate sleep probabilities, also converts column names to genotypes
+# Removes columns where NA is present
 C_get_sleep_prob = function(data, channel_dict){
   Pdata = as.data.frame(sapply(as.data.frame(data), calc_pwake_doze))
   rownames(Pdata) = c("Pwake", "Pdoze")
-  P_match_genotype(Pdata, channel_dict) %>% return()
+  omit_na = Pdata[, colSums(is.na(Pdata)) == 0]
+  P_match_genotype(omit_na, channel_dict) %>% return()
 }
 
 # Calculates Pwake and Pdoze for a single column
@@ -96,7 +98,7 @@ calc_pwake_doze = function(bins){
   }
 
   # Calculates the value for Pwake and Pdoze
-  # If the denominator is 0, the value gets set to -1 (undefined)
+  # If the denominator is 0, the value gets set to NA (undefined)
   if(denom_wake == 0){
     Pwake = NA
   }else{
@@ -111,3 +113,4 @@ calc_pwake_doze = function(bins){
 
   return(list(Pwake, Pdoze))
 }
+

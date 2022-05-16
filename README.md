@@ -3,20 +3,26 @@ Internship Project<br>
 Made by Thijs Weenink
 
 # Requirements
-Java is used for the interface, R (version 4.1.3) is required to be installed on the pc.
+- Java version 17
+- R version 4.1.3
 
 ### R packages
+- collections - 0.3.5
+- config - 0.3.1
 - dplyr - 1.0.7
 - stringr - 1.4.0
-- collections - 0.3.5
 - tidyr - 1.2.0
-- xlsx - 0.6.5
-- config - 0.3.1
 - tidyverse - 1.3.1
+- tools - 4.1.3
+- xlsx - 0.6.5
 
 # Usage
-### Location
-The application only works if it's in the same folder as "Configs" and "RCode". A warning message will show if the config.yml file or any of the R scripts can't be found. However, there are no checks in place in the case one of both of the .xlsx files are missing.
+### Description
+This application processes the raw .txt files from SRT-monitors and outputs 5 calculations and 2 sets of probabilities.<br>
+The 5 calculations are: Total sleep time (TST), Sleep episode duration (SED), Number of sleep bouts (NoSB), Sleep onset latency (SOL) and Wake after sleep onset (WASO). The calculation data is grouped by genotype and averaged over day 3 and day 4.<br>
+The 2 sets of probabilities are: the probability that the fly switches from inactive to active (Pwake) and from active to inactive (Pdoze). Different from the 5 calculations, the probabilities are calculated for day 1 through 4, the average of day 1 and day 2, the average of day 3 and day 4, and the average of all days.<br><br>
+
+Every calculation is stored separately from eachother in a folder corresponding to the calculation (TST, SED, NoSB, SOL, WASO), the filename is the monitor that got processed. In the case of the probabilities, they are also stored under folders called Pwake and Pdoze, but as there are 7 output files for each monitor, they all get placed in a second folder named after the corresponding monitor. The filenames here are the different days and averages.
 
 ### How to use
 - On start-up, there is 1 button available: "Select...". Pressing this button opens a windows that allows for selection of 1 or more files.
@@ -24,5 +30,15 @@ The application only works if it's in the same folder as "Configs" and "RCode". 
 - The files get processed by the R script when the the second button gets pressed.
 - At the bottom of the screen, there is an area displaying the status of the application. It displays the current files being processed and once the R script is finished, it displays if the processing of the file has been successful or if there was an error.
 
+### Location
+The application only works if it's in the same folder as "Configs" and "RCode". A warning message will show if the config.yml file or any of the R scripts can't be found. However, there are no checks in place in the case one of both of the .xlsx files are missing.
+
 ### Configuration
 To edit the configuration file, click the "Config" menu at the top of the screen. Here you can edit the config.yml file from within the application itself. You can still change the config.yml file manually, but it won't update when opening the configuration window in the application again, while the application is still running.
+
+#### Excel files
+The 2 excel files determine extra configuration settings.
+- "day3_monitors.xlsx" determines when the third day is for each monitor file.
+- "genotypes_per_monitor.xlsx" determines which genotype belongs to which channel for each monitor file.
+
+<u>When adding more entries, it is very important to keep the same (date) formatting as the 2 files given.<u>

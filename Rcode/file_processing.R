@@ -53,11 +53,6 @@ FP_separate_data = function(out_loc, filename, geno_matched, bool_nested_folder=
     
     # Transforming data
     data = geno_matched[row_index,]
-    # Because R is annoying and having this as a list and not a double breaks everything
-    if(typeof(data) == "list"){
-      data = sapply(data, from_list_to_double)  
-    }
-    data = data[which(data >=0)] # Removes the -1's or NA from the data -- type == double
     inter1 = lapply(split(lapply(data, as.character), names(data)), unlist)
     inter2 = sapply(inter1, "length<-", max(lengths(inter1)))
     cols_combined = as.data.frame(inter2)
