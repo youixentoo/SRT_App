@@ -34,7 +34,7 @@ The calculation data is grouped by genotype and averaged over day 3 and day 4.<b
 Different from the 5 calculations, the probabilities are calculated for day 1 through 4, the average of day 1 and day 2, the average of day 3 and day 4, and the average of all days.
 
 #### Storage
-Every calculation is stored separately from eachother in a folder corresponding to the calculation (TST, SED, NoSB, SOL, WASO), the filename is the monitor that got processed. In the case of the probabilities, they are also stored under folders called Pwake and Pdoze, but as there are 7 output files for each monitor, they all get placed in a second folder named after the corresponding monitor. The filenames here are the different days and averages.
+Every calculation is stored separately from eachother in a folder corresponding to the calculation (TST, SED, NoSB, SOL, WASO), the filename is the monitor that got processed. In the case of the probabilities, they are stored under folders called Pwake and Pdoze, but as there are 7 output files for each monitor, they all get placed in a second folder named after the corresponding monitor. The filenames here are the different days and averages.
 
 ## How to use
 - On start-up, there is 1 button available: "Select...". Pressing this button opens a windows that allows for selection of 1 or more files.
