@@ -6,11 +6,13 @@ Made by Thijs Weenink
 Download the latest zip from releases or click [here](https://github.com/youixentoo/SRT_App/releases/latest/download/SRT_app.zip)
 
 # Requirements
-- Java version 17
+- Java version 17*
 - R version 4.1.3
 
-To download Java 17, you need to have the Java 17 JDK installed. Which can be found here: https://www.oracle.com/java/technologies/downloads/#jdk17-windows
-I'll look into building the app so you don't have to install it.
+#### Java version
+A custom java environment is provided. If it doesn't work, you need to install Java 17.<br>
+To download Java 17, you need to download the Java 17 JDK installed. <br>The download page can be found here: https://www.oracle.com/java/technologies/downloads/#jdk17-windows
+
 
 ### R packages
 - abind - 1.4.5
