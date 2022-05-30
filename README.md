@@ -11,7 +11,7 @@ Download the latest zip from releases or click [here](https://github.com/youixen
 
 #### Java version
 A custom java environment is provided. If it doesn't work, you need to install Java 17.<br>
-To download Java 17, you need to download the Java 17 JDK installed. <br>The download page can be found here: https://www.oracle.com/java/technologies/downloads/#jdk17-windows
+To download Java 17, you need to download the Java 17 JDK. <br>The download page can be found here: https://www.oracle.com/java/technologies/downloads/#jdk17-windows
 
 
 ### R packages
