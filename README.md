@@ -9,7 +9,11 @@ Download the latest zip from releases or click [here](https://github.com/youixen
 - Java version 17
 - R version 4.1.3
 
+To download Java 17, you need to have the Java 17 JDK installed. Which can be found here: https://www.oracle.com/java/technologies/downloads/#jdk17-windows
+I'll look into building the app so you don't have to install it.
+
 ### R packages
+- abind - 1.4.5
 - collections - 0.3.5
 - config - 0.3.1
 - dplyr - 1.0.7
