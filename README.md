@@ -4,7 +4,7 @@ Made by Thijs Weenink<br>
 Only tested on Windows 10.
 
 ### Download
-Download the latest zip from releases or click [here](https://github.com/youixentoo/SRT_App/releases/latest/download/SRT_app.zip)
+Download the latest zip from releases or click [here](https://github.com/youixentoo/SRT_App/releases/download/v1.2.2/SRT_app.-.1.2.2.zip)
 
 # Requirements
 - Java version 17*
