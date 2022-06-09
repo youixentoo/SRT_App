@@ -13,6 +13,7 @@ source("Rcode/calculations.R")
 
 # V11 - V42 == channels
 
+
 ####################################################
 #                                                  #
 # R script used for execution without the Java GUI #
@@ -71,7 +72,7 @@ SRT_main = function(file_list){
       Pavg34 = P_combine_data(Pday3, Pday4)
       PavgAll = P_combine_data(Pday1, Pday2, Pday3, Pday4)
 
-      # TST, SOL, NoSB, SED and WASO calcs
+      # TST, SOL, NoSB, SED, WASO and sleep eff calcs
       data_entry = C_get_data_per_file(waso_time, night_periods[3:4])
       averaged_plus_dead = P_average_days(data_entry, dead_threshold)
       geno_matched = P_match_genotype(as.data.frame(averaged_plus_dead[[1]]), monitor_dict$get(current_monitor))
@@ -86,7 +87,6 @@ SRT_main = function(file_list){
       data_entries$set(sprintf("%s_Pavg12", file_name), list(TRUE, Pavg12, current_monitor))
       data_entries$set(sprintf("%s_Pavg34", file_name), list(TRUE, Pavg34, current_monitor))
       data_entries$set(sprintf("%s_PavgAll", file_name), list(TRUE, PavgAll, current_monitor)) # double
-
 
     returnVal = "success"
     },
@@ -128,7 +128,7 @@ last_index = function(x){
 
 # Call script
 if (getOption('run.main', default=TRUE)) {
-  # Change filepaths below to correct input files.   , "C:/Users/User/Desktop/Stage/201127/rawdata1212/Monitor21.txt"
-  file_list = list("C:/Users/User/Desktop/Stage/201127/rawdata1212/Monitor22.txt")
+  # Change filepaths below to correct input files.   
+  file_list = list("C:/Users/User/Desktop/Stage/201127/rawdata1212/Monitor22.txt", "C:/Users/User/Desktop/Stage/201127/rawdata1212/Monitor21.txt", "C:/Users/User/Desktop/Stage/201127/rawdata1212/eror.txt")
   SRT_main(file_list)
 }

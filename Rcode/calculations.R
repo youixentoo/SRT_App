@@ -18,7 +18,7 @@ C_get_data_per_file = function(waso_time, night_periods){
 # Column wise calculations of a single day
 do_calculations = function(day_data, waso_time){
   calc_data = as.data.frame(sapply(day_data, col_calcs, waso_time=waso_time))
-  rownames(calc_data) = c("TST", "SOL", "NoSB", "SED", "WASO")
+  rownames(calc_data) = c("TST", "SOL", "NoSB", "SED", "WASO", "S_Eff")
   return(calc_data)
 }
 
@@ -30,6 +30,10 @@ col_calcs = function(data, waso_time){
 
   # TST - min
   TST = sum(TST_total_lengths)/2
+  
+  # Sleep efficiency
+  # TSt / rows * 100
+  Sleep_eff = (TST / (nchar(data_string)/2)) * 100
 
   # SOL - min
   # Number of rows until first sleep
@@ -45,7 +49,7 @@ col_calcs = function(data, waso_time){
   # WASO - min
   WASO = waso_time - TST - SOL
 
-  return(list(TST, SOL, NoSB, SED, WASO))
+  return(list(TST, SOL, NoSB, SED, WASO, Sleep_eff))
 }
 
 # Returns the row length from the regex, used to calculate TST
